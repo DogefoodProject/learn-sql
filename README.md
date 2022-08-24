@@ -26,7 +26,7 @@
 create table t_student(
     sno int(6) primary key auto_increment,
     sname varchar(5) not null,
-    sex char(1) default '男' check(sex='男' || sex='女'),
+    sex char(1) default '男' check(sex='男' or sex='女'),
     age int(3) check(age>=18 and age<=50),
     enter_date date,
     class_name varchar(10),
@@ -39,4 +39,21 @@ insert into t_student(null, 'hello', '男', '2030-1-2', '6-01', 'hello@gmail.com
 insert into t_student(default, 'world', '男', '2030-1-2', '6-01', 'world@gmail.com');
 ```
 如果sql报错，主键就浪费例，后续插入主键就不连号了。
-
+### 约束分类
+* 表级约束：可以约束表中任意一个或多个字段。与列定义相互独立，不包含在列定义中；与定义用`,`分隔；必须指出要约束的列的名称。
+* 列级约束：包含在列定义中，直接跟在列的其他定义之后，用空格分隔；不必指定列名。
+```sql
+create table t_student(
+    sno int(6) auto_increment,
+    sname varchar(5) not null,
+    sex char(1) default '男',
+    age int(3),
+    enter_date date,
+    class_name varchar(10),
+    email varchar(50),
+    constraint pk_stu primary key (sno),
+    constraint chk_stu_sex check (sex='男'or sex='女'),
+    constraint chk_stu_age check (age>=18 and age<=50),
+    constraint uq_stu_email unique (email)
+);
+```
