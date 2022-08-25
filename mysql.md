@@ -1,4 +1,12 @@
 # MySQL
+## 基本概念
+
+| 名称  | 概念                         | 作用              | 操作                                                       |
+|-----|----------------------------|-----------------|----------------------------------------------------------|
+| DDL | Data Definition Language   | 定义数据库对象         | CREATE、ALTER、DROP、TRUNCATE、COMMENT、GRANT、REVOKE          |
+| DML | Data Manipulation Language | 操作数据库对象         | SELECT、INSERT、UPDATE、DELETE、CALL、EXPLAIN PLAN、LOCK TABLE |
+| DCL | Data Control Language      | 设置或更改数据库用户或角色权限 | COMMIT、SAVEPOINT、ROLLBACK、SET TRANSACTION                |
+
 ## 非外键约束
 为了防止不合规范的数据入库，在用户对数据进行插入、修改、删除等操作时，Mysql提供了一种机制来检查数据库中的数据是否满足规定的条件，以保证数据库中
 数据的准确性和一致性，这种机制就是完整性约束。 Mysql主要支持一下几种完整性约束。
