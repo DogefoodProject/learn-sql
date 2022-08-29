@@ -170,4 +170,31 @@ create table bonus(
     sal double(7,2),
     comm double(7,2)
 );
+
+-- 起别名
+select empno 员工编号, ename 姓名, sal 工资 from emp;
+-- 使用as起别名
+select empno as 员工编号, ename as 姓名, sal as 工资 from emp;
+-- 别名可以加单（双）引号
+select empno as '员工编号', ename as "姓名", sal as 工资 from emp;
+-- 有特殊字符，必须加单（双）引号
+select empno as '员工 编号', ename as "姓 名", sal as 工资 from emp;
+-- 做运算
+select empno,ename,sal,sal+1000 as 涨薪后,deptno from emp;
+-- 和Null做运算，结果都是Null
+select empno,ename,sal,comm,sal+comm from emp;
+
+-- 去重
+select distinct job from emp;
+-- 对后面所有列组合去重
+select distinct job,deptno from emp;
+
+-- 排序
+select * from emp order by sal; -- 默认按升序排序
+-- 显式升序
+select * from emp order by sal asc; 
+-- 降序
+select * from emp order by sal desc;
+-- 在工资升序的情况下，部门按降序排列
+select * from emp order by sal asc, deptno desc; 
 ```
