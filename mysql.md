@@ -33,7 +33,7 @@
 * 性别默认是男性
 * 性别只能是男或女
 * 年龄只能在18-50岁之间
-```sql
+```mysql
 create table t_student(
     sno int(6) primary key auto_increment,
     sname varchar(5) not null,
@@ -45,13 +45,13 @@ create table t_student(
 );
 ```
 使用`null`或`default`都可完成主键自增。
-```sql
+```mysql
 insert into t_student(null, 'hello', '男', '2030-1-2', '6-01', 'hello@gmail.com');
 insert into t_student(default, 'world', '男', '2030-1-2', '6-01', 'world@gmail.com');
 ```
 如果sql报错，主键就浪费例，后续插入主键就不连号了。
 ### 表级约束
-```sql
+```mysql
 create table t_student(
     sno int(6) auto_increment,
     sname varchar(5) not null,
@@ -67,7 +67,7 @@ create table t_student(
 );
 ```
 创建表后，再添加约束。
-```sql
+```mysql
 alter table t_student add constraint pk_stu primary key (sno);
 alter table t_student modify sno int(6) auto_increment;
 alter table t_student add constraint chk_stu_sex check (sex='男'or sex='女');
@@ -77,7 +77,7 @@ alter table t_student add constraint uq_stu_email unique (email);
 ## 外键约束
 外键是指表中某个字段的值依赖于另一张表中的某个字段的值，而被依赖的字段必须有主键约束或唯一约束。被依赖的表称为`父表`或`主表`，设置外键约束的表
 称为`子表`或`从表`。
-```sql
+```mysql
 -- 创建父表
 create table t_class(
     cno int(4) primary key auto_increment,
@@ -99,23 +99,23 @@ create table t_student(
 insert into t_class values (null, "hello", 1),(null, "world", 1),(null, "hehe", 2);
 ```
 外键约束只有表级约束，没有列级约束。
-```sql
+```mysql
 alter table t_student add constraint fk_stu_class_no foreign key (class_no) references t_class(cno);
 ```
 ### 外键策略
 * no action：不允许操作。
 * cascade：级联操作，操作主表的时候影响从表的外键信息。先删除之前的外键约束，在添加新的外键约束。
-```sql
+```mysql
 alter table t_student drop foreign key fk_stu_class_no;
 alter table t_student add constraint fk_stu_class_no foreign key (class_no) references t_class(cno) on update cascade on delete cascade;
 ```
 * set null：置空操作。
-```sql
+```mysql
 alter table t_student drop foreign key fk_stu_class_no;
 alter table t_student add constraint fk_stu_class_no foreign key (class_no) references t_class(cno) on update set null on delete set null;
 ```
 ### 快速创建表
-```sql
+```mysql
 -- 结构和数据和t_student都是一样的
 create table t_teacher as select * from t_student;
 
@@ -126,10 +126,48 @@ create table t_teacher2 as select * from t_student where 1=2;
 create table t_teacher3 as select sno,snmae,age from t_student where sno=2;
 ```
 ### 删除
-```sql
+```mysql
 -- 清空数据
 delete from t_student;
 
 -- 清空数据
 truncate table t_student;
+```
+## DQL
+```mysql
+-- 部门表
+create table dept(
+    deptno int(2) not null,
+    dname varchar(14),
+    loc varchar(13)
+);
+alter table dept add constraint pk_dept primary key (deptno);
+
+-- 员工表
+create table emp(
+    empno int(4) primary key,
+    ename varchar(10),
+    job varchar(9),
+    mgr int(4),
+    hiredate DATE,
+    sal double(7,2),
+    comm double(7,2),
+    deptno int(2)
+);
+alter table emp add constraint fk_deptno foreign key (deptno) references dept(deptno);
+
+-- 薪资等级表
+create table salgrade(
+    grade int primary key,
+    losal double(7,2),
+    hisal double(7,2)
+);
+
+-- 奖金表
+create table bonus(
+    ename varchar(10),
+    job varchar(9),
+    sal double(7,2),
+    comm double(7,2)
+);
 ```
