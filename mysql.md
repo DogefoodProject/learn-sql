@@ -198,3 +198,35 @@ select * from emp order by sal desc;
 -- 在工资升序的情况下，部门按降序排列
 select * from emp order by sal asc, deptno desc; 
 ```
+### where
+过滤条件放在where后面，筛选符合条件的数据。
+```mysql
+select * from emp wehre deptno=10;
+select * from emp wehre deptno>10;
+select * from emp wehre deptno>=10;
+select * from emp wehre deptno<10;
+select * from emp wehre deptno<=10;
+select * from emp wehre deptno<>10;
+select * from emp where job='CLERK';
+select * from emp where job='clerk'; -- 默认情况下不区分大小写
+select * from emp where binary job='clerk'; -- binary区分大小写
+select * from emp where hiredate < '1981-12-25';
+
+select * from emp where sal > 1500 and sal < 3000 order by sal; -- (1500, 3000)
+select * from emp where sal > 1500 && sal < 3000;
+select * from emp where sal between 1500 and 3000; -- [1500,3000]
+
+select * from emp where deptno = 10 or deptno = 20;
+select * from emp where deptno = 10 || deptno = 20;
+select * from emp where deptno in (10, 20);
+select * from emp where job in('MANAGER','CLERK','ANALYST');
+
+-- 模糊查询
+select * from emp where ename like '%A%'; -- %任意多个字符
+select * from emp where ename like '_A%'; -- -任意一个字符
+
+select * from emp where comm is null;
+select * from emp where comm is not null;
+
+select * from emp where (job = 'SALESMAN' or job = 'CLERK') and sal >= 1500;
+```
