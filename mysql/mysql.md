@@ -230,3 +230,11 @@ select * from emp where comm is not null;
 
 select * from emp where (job = 'SALESMAN' or job = 'CLERK') and sal >= 1500;
 ```
+### 函数
+* 单行函数：对每一条记录进行计算，得到结果返回给用户。
+* 多行函数：对一组数据进行计算，只返回一个结果，也称分组函数。
+```mysql
+select empno,ename,lower(ename),upper(ename),sal from emp;
+select max(sal),min(sal),count(sal),sum(sal),avg(sal) from emp; -- 多行函数
+```
+注意：除了多行函数，都是多行函数。
