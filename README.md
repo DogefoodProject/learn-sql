@@ -1,4 +1,4 @@
 # learn-sql
-- [**MySQL**](./mysql.md)
-- [**PostgreSQL**](./postgresql.md)
+- [**MySQL**](mysql/mysql.md)
+- [**PostgreSQL**](postgresql/postgresql.md)
 
